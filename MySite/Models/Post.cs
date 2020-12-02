@@ -11,7 +11,6 @@ namespace MySite.Models
         public string NamePost { get; set; }
         public string DescriptionPost { get; set; }
         public string Time { get; set; }
-        public string[] Tags { get; set; }
         public object Image { get; set; }
 
     }
