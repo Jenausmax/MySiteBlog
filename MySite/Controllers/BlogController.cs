@@ -8,6 +8,7 @@ namespace MySite.Controllers
 {
     public class BlogController : Controller
     {
+        [Route("/")]
         public IActionResult Index()
         {
             return View();

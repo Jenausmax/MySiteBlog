@@ -20,5 +20,10 @@ namespace MySite.Models
 
             return _blogDb.Posts.ToList().AsQueryable();
         }
+
+        public void SavePost(Post post, Tag tag)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
