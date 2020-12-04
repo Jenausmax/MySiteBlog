@@ -9,21 +9,45 @@ namespace MySite.Models
     public class BlogRepository : IPost
     {
         private BlogDbContext _blogDb;
-        //public ICollection<Post> Posts { get; }
+
 
         public BlogRepository(BlogDbContext blogDb)
         {
             _blogDb = blogDb;
         }
-        IQueryable<Post> IPost.Posts()
-        {
+        public IQueryable<Post> Posts() => _blogDb.Posts.ToList().AsQueryable();
 
-            return _blogDb.Posts.ToList().AsQueryable();
+        public IQueryable<Tag> Tags() => _blogDb.Tags.ToList().AsQueryable();
+
+
+        public void SavePost(Post post, List<Tag> tags)
+        {
+            if (post != null)
+            {
+                _blogDb.Posts.Add(post);
+
+                if (tags != null)
+                {
+                    foreach (var item in tags)
+                    {
+                        var tag = _blogDb.Tags.Where(i => i.TitleTag != item.TitleTag);
+                        if (tag != null)
+                        {
+                            _blogDb.Tags.Add(item);
+                        }
+
+                        post.Tags.Add(item);
+
+                    }
+                }
+            }
+
+            Save();
         }
 
-        public void SavePost(Post post, Tag tag)
+        private void Save()
         {
-            throw new NotImplementedException();
+            _blogDb.SaveChanges();
         }
     }
 }

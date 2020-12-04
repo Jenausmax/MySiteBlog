@@ -1,0 +1,17 @@
+﻿body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.gridd {
+    display: grid;
+    justify-content: center;
+}
+
+
+
+.grid-item {
+    background-color: indigo;
+    width: 300px;
+    height: 100px;
+}

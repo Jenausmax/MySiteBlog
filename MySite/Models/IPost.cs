@@ -8,7 +8,8 @@ namespace MySite.Models
     public interface IPost
     {
         IQueryable<Post> Posts();
-        void SavePost(Post post, Tag tag);
+        IQueryable<Tag> Tags();
+        void SavePost(Post post, List<Tag> tag);
         
     }
 }

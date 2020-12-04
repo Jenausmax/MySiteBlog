@@ -8,10 +8,13 @@ namespace MySite.Controllers
 {
     public class BlogController : Controller
     {
+        [HttpGet]
         [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
+
+
     }
 }

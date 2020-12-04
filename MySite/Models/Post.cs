@@ -12,6 +12,7 @@ namespace MySite.Models
         public string DescriptionPost { get; set; }
         public string Time { get; set; }
         public string ImagePatch { get; set; }
+        public  string Url { get; set; }
         public List<Tag> Tags { get; set; }
 
     }
