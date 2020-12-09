@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace MySite.Controllers
 {
-    public class BlogController : Controller
+    public class HomeController : Controller
     {
-        
+        [HttpGet]
+        [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
-
-
     }
 }
