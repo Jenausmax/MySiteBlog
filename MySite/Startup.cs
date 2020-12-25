@@ -28,6 +28,7 @@ namespace MySite
             services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(connectionString));
             services.AddScoped<IPost, BlogRepository>();
             services.AddMvc();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
  
@@ -36,6 +37,7 @@ namespace MySite
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             app.UseStaticFiles();
