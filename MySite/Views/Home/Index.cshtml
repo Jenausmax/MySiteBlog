@@ -1,40 +1,63 @@
 ﻿@{
-    
     Layout = null;
 }
 
 <!DOCTYPE html>
-
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-
-    
-    <meta name="keywords" content=""/>
-    <meta name="description" content=""/>
-
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="css/main.css"/>
-
-    <link rel="icon" href="" type="image/x-icon"/>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
     <title>Home</title>
 </head>
 <body>
-<header class="gridd">
-    <div class="grid-item">
-        1115252525
-        klhglfkdcghcvbnvbmfhmxfhmxgjm11111
-    </div>
+<header class="header">
+    <a class="nav-logo" href="#">
+        <img src="#">
+    </a>
+    <nav class="header-nav">
+        <a href="#" class="header-nav-link">Главная</a>
+        <a href="#" class="header-nav-link">Блог</a>
+        <a href="#" class="header-nav-link">Шпоры</a>
+        <a href="#" class="header-nav-link">Обо мне</a>
+    </nav>
+    <div></div>
 </header>
-<div>
-   
-</div>
-<footer>
+<section class="body1">
+    <div class="body-nav1">
+        <div class="text-b">
+            <div class="text-gl">Блог</div>
+            <div class="text-ml">о пути С# web</div>
+            <div class="text-ml">программиста</div>
+        </div>
+        
 
+        <input type="submit" value="Почитать" class="buttom" asp-controller="blog" asp-action="index"/>
+    </div>
+    <div class="body-nav2">
+        <img src="/img/414.png" />
+    </div>
+    <div class="body-nav3 spec">
+
+    </div>
+</section>
+<footer class="footer-n">
+    <nav class="footer-nav">
+        <div></div>
+        <div class="contact">
+            <a href="#" class="footer-nav-link">
+                <img src="img/telegram-1.svg"/>
+            </a>
+            <a href="#" class="footer-nav-link">
+                <img src="img/1024px-VK_font_awesome.svg.png"/>
+            </a>
+        </div>
+        <div></div>
+        <div class="social">
+            <a href="#" class="footer-nav-link">Обо мне</a>
+        </div>
+        <div></div>
+    </nav>
 </footer>
 </body>
 </html>
