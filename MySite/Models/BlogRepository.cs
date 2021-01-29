@@ -15,9 +15,10 @@ namespace MySite.Models
         {
             _blogDb = blogDb;
         }
-        public IQueryable<Post> Posts() => _blogDb.Posts.ToList().AsQueryable();
+        public IQueryable<Post> Posts() => _blogDb.Posts.ToList().AsQueryable<Post>();
 
-        public IQueryable<Tag> Tags() => _blogDb.Tags.ToList().AsQueryable();
+        public IQueryable<Tag> Tags() => _blogDb.Tags.ToList().AsQueryable<Tag>();
+        public IQueryable<HelpPost> HelpPosts() => _blogDb.HelpPosts.ToList().AsQueryable<HelpPost>();
 
 
         public void SavePost(Post post, List<Tag> tags)
@@ -48,6 +49,15 @@ namespace MySite.Models
         private void Save()
         {
             _blogDb.SaveChanges();
+        }
+
+        public void SaveHelpPost(HelpPost helpPost)
+        {
+            if(helpPost != null)
+            {
+                _blogDb.Add(helpPost);
+                Save();
+            }
         }
     }
 }
