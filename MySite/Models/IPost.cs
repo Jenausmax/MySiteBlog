@@ -7,11 +7,12 @@ namespace MySite.Models
 {
     public interface IPost
     {
-        IQueryable<Post> Posts();
-        IQueryable<Tag> Tags();
-        IQueryable<HelpPost> HelpPosts();
+        IQueryable<Post> Posts { get; }
+        IQueryable<Tag> Tags { get; }
+        IQueryable<HelpPost> HelpPosts { get; }
         void SavePost(Post post, List<Tag> tag);
         void SaveHelpPost(HelpPost helpPost);
+        Post DeletePost(int postId);
         
     }
 }

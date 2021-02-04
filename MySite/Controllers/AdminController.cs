@@ -10,36 +10,38 @@ namespace MySite.Controllers
     public class AdminController : Controller
     {
         private IPost _postRepository;
+        private ITagsLogic _tagsLogic;
 
-        public AdminController(IPost repo)
+        public AdminController(IPost repo, ITagsLogic logic)
         {
             _postRepository = repo;
+            _tagsLogic = logic;
         }
         
         [HttpGet]
         [Route("Admin/List")]
         public IActionResult List()
         {
-            return View(_postRepository.Posts());
+            return View(_postRepository.Posts);
         }
 
+        [Route("Admin/Create")]
         public IActionResult Create() => View("Edit", new Post());
 
+        [Route("Admin/Edit")]
+        public IActionResult Edit(int tagsId)
+        {
+            return View(_postRepository.Posts.FirstOrDefault(p => p.Id == tagsId));
+        }
+
+        [HttpPost]
+        [Route("Admin/Edit")]
         public IActionResult Edit(Post post, string tag)
         {
             if (ModelState.IsValid)
             {
-                string[] strTag = tag.Split(',');
-                List<Tag> tags = new List<Tag>();
-                foreach (var itemStringTag in strTag)
-                {
-                    tags.Add(new Tag(itemStringTag));
-                }
 
-                List<Tag> repoTags = _postRepository.Tags().ToList();
-                
-                
-                _postRepository.SavePost(post);
+                _postRepository.SavePost(post, _tagsLogic.GetTags(tag));
                 TempData["message"] = $"{post.NamePost} has been saved.";
                 return RedirectToAction("List");
             }
@@ -47,6 +49,18 @@ namespace MySite.Controllers
             {
                 return View(post);
             }
+        }
+
+        [Route("Admin/Delete")]
+        public IActionResult Delete(int postId)
+        {
+            var deletePost = _postRepository.DeletePost(postId);
+            if (deletePost != null)
+            {
+                TempData["message"] = $"{deletePost.NamePost} was deleted.";
+            }
+
+            return RedirectToAction("List");
         }
     }
 }
