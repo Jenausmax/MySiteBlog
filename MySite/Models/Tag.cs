@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MySite.Models
@@ -10,5 +11,12 @@ namespace MySite.Models
         public int TagId { get; set; }
         public string TitleTag { get; set; }
         public List<Post> Posts { get; set; }
+
+        public Tag(){}
+
+        public Tag(string titleTag)
+        {
+            TitleTag = titleTag;
+        }
     }
 }
