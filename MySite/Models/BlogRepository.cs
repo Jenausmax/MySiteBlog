@@ -29,16 +29,9 @@ namespace MySite.Models
 
                 if (tags != null)
                 {
-                    foreach (var item in tags)
+                    foreach (var tagItem in tags)
                     {
-                        var tag = _blogDb.Tags.Where(i => i.TitleTag != item.TitleTag);
-                        if (tag != null)
-                        {
-                            _blogDb.Tags.Add(item);
-                        }
-
-                        post.Tags.Add(item);
-
+                        post.Tags.Add(tagItem);
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace MySite.Models
                 }
             }
 
-            return resultTags;
+            return tags;
         }
     }
 }
