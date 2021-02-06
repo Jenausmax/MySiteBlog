@@ -1,4 +1,4 @@
-﻿@model Post
+﻿@model MySite.Models.ViewModels.PostTagViewModel
 
 @{
     Layout = "_AdminLayout";
@@ -6,25 +6,28 @@
 }
 
 <form asp-action="Edit" asp-controller="Admin" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Post.Post.Id" />
     <div class="form-group">
-        <label asp-for="NamePost"></label>
-        <div><span asp-validation-for="NamePost" class="text-danger"></span></div>
-        <input asp-for="NamePost" class="form-control" />
+        <label asp-for="Post.Post.NamePost"></label>
+        <div><span asp-validation-for="Post.Post.NamePost" class="text-danger"></span></div>
+        <input asp-for="Post.Post.NamePost" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="DescriptionPost"></label>
-        <div><span asp-validation-for="DescriptionPost" class="text-danger"></span></div>
-        <textarea asp-for="DescriptionPost" class="form-control"></textarea>
+        <label asp-for="Post.Post.DescriptionPost"></label>
+        <div><span asp-validation-for="Post.Post.DescriptionPost" class="text-danger"></span></div>
+        <textarea asp-for="Post.Post.DescriptionPost" class="form-control"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="Time"></label>
-        <div><span asp-validation-for="Time" class="text-danger"></span></div>
-        <input asp-for="Time" class="form-control" />
+        <label asp-for="Post.Post.Time"></label>
+        <div><span asp-validation-for="Post.Post.Time" class="text-danger"></span></div>
+        <input asp-for="Post.Post.Time" class="form-control" />
     </div>
-    
     <div class="form-group">
-        <img src="@Model.ImagePatch" style='width:100px; height:80px;'/>
+        <label asp-for="Post.StringTag"></label>
+        <input asp-for="Post.StringTag" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <img src="@Model.Post.Post.ImagePatch" style='width:100px; height:80px;'/>
         <input type="file" name="uploadedFile" /><br>
     </div>
     

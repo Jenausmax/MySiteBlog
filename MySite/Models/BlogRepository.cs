@@ -72,7 +72,7 @@ namespace MySite.Models
             postSeed.DescriptionPost = "Lorem Ipsum to do..";
             postSeed.Tags.Add(tagSeed);
             postSeed.Time = "20.02.2020";
-            postSeed.ImagePatch = "/image/";
+            postSeed.ImagePatch = "/image/Unknown.png";
             _blogDb.Posts.Add(postSeed);
             Save();
         }
