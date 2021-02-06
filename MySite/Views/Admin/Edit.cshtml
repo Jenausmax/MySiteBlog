@@ -5,7 +5,7 @@
     ViewBag.Title = "Edit Post";
 }
 
-<form asp-action="Edit" asp-controller="Admin" method="post">
+<form asp-action="Edit" asp-controller="Admin" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="NamePost"></label>
@@ -22,10 +22,11 @@
         <div><span asp-validation-for="Time" class="text-danger"></span></div>
         <input asp-for="Time" class="form-control" />
     </div>
-    <form asp-action="Edit" asp-controller="Admin" method="post" enctype="multipart/form-data">
+    
+    <div class="form-group">
+        <img src="@Model.ImagePatch" style='width:100px; height:80px;'/>
         <input type="file" name="uploadedFile" /><br>
-        <input type="submit" value="Загрузить" />
-    </form>
+    </div>
     
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Save</button>

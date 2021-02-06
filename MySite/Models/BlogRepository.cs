@@ -29,21 +29,14 @@ namespace MySite.Models
             }
             else
             {
-                //var dbEntry = context.Products.FirstOrDefault(p => p.Id == product.Id);
-                //if (dbEntry != null)
-                //{
-                //    dbEntry.Name = product.Name;
-                //    dbEntry.Description = product.Description;
-                //    dbEntry.Category = product.Category;
-                //    dbEntry.Price = product.Price;
-                //}
-
+                
                 var dbEntry = _blogDb.Posts.FirstOrDefault(p => p.Id == post.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.NamePost = post.NamePost;
                     dbEntry.DescriptionPost = post.DescriptionPost;
                     dbEntry.Time = post.Time;
+                    dbEntry.ImagePatch = post.ImagePatch;
                 }
             }
 

@@ -1,22 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MySite.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MySite.Controllers
 {
     public class AdminController : Controller
     {
-        private IPost _postRepository;
-        private ITagsLogic _tagsLogic;
+        private readonly IPost _postRepository;
+        private readonly ITagsLogic _tagsLogic;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(IPost repo, ITagsLogic logic)
+        public AdminController(IPost repo, ITagsLogic logic, IWebHostEnvironment appEnvironment)
         {
             _postRepository = repo;
             _tagsLogic = logic;
+            _appEnvironment = appEnvironment;
         }
         
         [HttpGet]
@@ -37,12 +41,32 @@ namespace MySite.Controllers
 
         [HttpPost]
         [Route("Admin/Edit")]
-        public IActionResult Edit(Post post, IFormFile uploadedFile = null)
+        public async Task<IActionResult> Edit(Post post, IFormFile uploadedFile = null)
         {
             if (ModelState.IsValid)
             {
+                var postFileURL = post;
+                if (uploadedFile != null)
+                {
+                    // путь к папке Files
+                    string path = "/image/" + uploadedFile.FileName;
+                    
+                    // сохраняем файл в папку image в каталоге wwwroot
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
 
-                _postRepository.SavePost(post);
+                    postFileURL.ImagePatch = path;
+                }
+                else
+                {
+                    //заглушка если нет файла
+                    postFileURL.ImagePatch = "/image/Unknown.png";
+                }
+
+                _postRepository.SavePost(postFileURL); //сохранение обновленного поста в базе
+                
                 TempData["message"] = $"{post.NamePost} has been saved.";
                 return RedirectToAction("List");
             }
@@ -52,6 +76,7 @@ namespace MySite.Controllers
             }
         }
 
+        [HttpPost]
         [Route("Admin/Delete")]
         public IActionResult Delete(int postId)
         {
@@ -64,9 +89,11 @@ namespace MySite.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpGet]
         [Route("Admin/SeedDataBase")]
         public IActionResult SeedDataBase()
         {
+            //метод загрузки первоначальных данных в базу если база пуста
             _postRepository.SeedDataBase();
             return RedirectToAction(nameof(List));
         }
