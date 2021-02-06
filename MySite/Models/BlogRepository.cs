@@ -18,21 +18,32 @@ namespace MySite.Models
         public IQueryable<Post> Posts => _blogDb.Posts;
 
         public IQueryable<Tag> Tags => _blogDb.Tags;
-        public IQueryable<HelpPost> HelpPosts => _blogDb.HelpPosts;
+       
 
 
-        public void SavePost(Post post, List<Tag> tags)
+        public void SavePost(Post post)
         {
-            if (post != null)
+            if (post.Id == 0)
             {
                 _blogDb.Posts.Add(post);
+            }
+            else
+            {
+                //var dbEntry = context.Products.FirstOrDefault(p => p.Id == product.Id);
+                //if (dbEntry != null)
+                //{
+                //    dbEntry.Name = product.Name;
+                //    dbEntry.Description = product.Description;
+                //    dbEntry.Category = product.Category;
+                //    dbEntry.Price = product.Price;
+                //}
 
-                if (tags != null)
+                var dbEntry = _blogDb.Posts.FirstOrDefault(p => p.Id == post.Id);
+                if (dbEntry != null)
                 {
-                    foreach (var tagItem in tags)
-                    {
-                        post.Tags.Add(tagItem);
-                    }
+                    dbEntry.NamePost = post.NamePost;
+                    dbEntry.DescriptionPost = post.DescriptionPost;
+                    dbEntry.Time = post.Time;
                 }
             }
 
@@ -44,14 +55,7 @@ namespace MySite.Models
             _blogDb.SaveChanges();
         }
 
-        public void SaveHelpPost(HelpPost helpPost)
-        {
-            if(helpPost != null)
-            {
-                _blogDb.Add(helpPost);
-                Save();
-            }
-        }
+        
 
         public Post DeletePost(int postId)
         {
@@ -64,6 +68,20 @@ namespace MySite.Models
             }
 
             return postRemove;
+        }
+
+        public void SeedDataBase()
+        {
+            var tagSeed = new Tag("Seed");
+            _blogDb.Tags.Add(tagSeed);
+            var postSeed = new Post();
+            postSeed.NamePost = "Lorem Ipsum";
+            postSeed.DescriptionPost = "Lorem Ipsum to do..";
+            postSeed.Tags.Add(tagSeed);
+            postSeed.Time = "20.02.2020";
+            postSeed.ImagePatch = "/image/";
+            _blogDb.Posts.Add(postSeed);
+            Save();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySite.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MySite.Controllers
 {
@@ -29,19 +30,19 @@ namespace MySite.Controllers
         public IActionResult Create() => View("Edit", new Post());
 
         [Route("Admin/Edit")]
-        public IActionResult Edit(int tagsId)
+        public IActionResult Edit(int id)
         {
-            return View(_postRepository.Posts.FirstOrDefault(p => p.Id == tagsId));
+            return View(_postRepository.Posts.FirstOrDefault(p => p.Id == id));
         }
 
         [HttpPost]
         [Route("Admin/Edit")]
-        public IActionResult Edit(Post post, string tag)
+        public IActionResult Edit(Post post, IFormFile uploadedFile = null)
         {
             if (ModelState.IsValid)
             {
 
-                _postRepository.SavePost(post, _tagsLogic.GetTags(tag));
+                _postRepository.SavePost(post);
                 TempData["message"] = $"{post.NamePost} has been saved.";
                 return RedirectToAction("List");
             }
@@ -61,6 +62,13 @@ namespace MySite.Controllers
             }
 
             return RedirectToAction("List");
+        }
+
+        [Route("Admin/SeedDataBase")]
+        public IActionResult SeedDataBase()
+        {
+            _postRepository.SeedDataBase();
+            return RedirectToAction(nameof(List));
         }
     }
 }

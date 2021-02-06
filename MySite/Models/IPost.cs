@@ -9,10 +9,10 @@ namespace MySite.Models
     {
         IQueryable<Post> Posts { get; }
         IQueryable<Tag> Tags { get; }
-        IQueryable<HelpPost> HelpPosts { get; }
-        void SavePost(Post post, List<Tag> tag);
-        void SaveHelpPost(HelpPost helpPost);
+
+        void SavePost(Post post);
         Post DeletePost(int postId);
-        
+        void SeedDataBase();
+
     }
 }
