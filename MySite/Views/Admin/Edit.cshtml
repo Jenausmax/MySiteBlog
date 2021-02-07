@@ -1,0 +1,71 @@
+﻿@model Post
+
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Edit Post";
+}
+
+<form asp-action="Edit" asp-controller="Admin" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="@Model.NamePost"></label>
+        <div><span asp-validation-for="@Model.NamePost" class="text-danger"></span></div>
+        <input asp-for="@Model.NamePost" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.DescriptionPost"></label>
+        <div><span asp-validation-for="@Model.DescriptionPost" class="text-danger"></span></div>
+        <textarea asp-for="@Model.DescriptionPost" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Time"></label>
+        <div><span asp-validation-for="@Model.Time" class="text-danger"></span></div>
+        <input asp-for="@Model.Time" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @*<input type="hidden" id="idmod" value="@Model.Id" />*@
+        @*@Html.TextBox("tag")
+        <input id="btnSubmit" type="button" value="Добавить тег" />
+
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    var formData = new FormData();
+                    formData.append("tag", $("#tag").val());
+                    //formData.append("idmod", $("#idmod").val());
+                    $.ajax({
+                            url: "/Admin/AddTag",
+                            type: 'POST',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (response) {
+                                alert(response);
+                            }
+                    });
+                    //location.reload();
+                });
+                
+            });
+        </script>*@
+
+
+       @Html.Label("Добавленные теги:")
+        @await Component.InvokeAsync("Tag", new { Model.Id })
+
+        
+    </div>
+    <div class="form-group">
+        <img src="@Model.ImagePatch" style='width:100px; height:80px;'/>
+        <input type="file" name="uploadedFile" /><br>
+    </div>
+    
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a asp-action="List" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

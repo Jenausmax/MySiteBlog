@@ -1,0 +1,116 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    background-color: dodgerblue;
+    height: 80px;
+    color: white;
+    text-align: center;
+}
+
+.nav-logo {
+    align-self: center;
+}
+
+.header-nav {
+    align-self: center;
+}
+
+.header-nav-link {
+    margin: 30px 30px;
+}
+
+.body1 {
+    height: 900px;
+    margin: 20px auto 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.body1 div {
+    
+}
+
+.spec {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.footer-n {
+    background-color: dodgerblue;
+}
+
+.footer-nav {
+    display: grid;
+    grid-template-columns: 2fr 2fr 5fr 2fr 2fr;
+    text-align: center;
+    height: 170px;
+    align-items: center;
+}
+
+.footer-nav-link img {
+    height: auto;
+    width: 100%;
+    max-width: 30px;
+}
+
+.contact {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+    width: 100%;
+}
+
+.body-nav2 img {
+    height: auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.buttom {
+    
+    width: 150px;
+    height: 55px;
+    background-color: dodgerblue;
+    text-align: center;
+    text-decoration: none;
+    min-width: 50px;
+    border: none;
+    font-size: 20px;
+    margin-left: 250px;
+    color: white;
+    margin-top: 50px;
+}
+
+.bt {
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 10%; 
+    margin-left: 10%;
+    text-align: center;
+    
+}
+
+.text-b {
+    margin-left: 250px;
+    font-size: 50px;
+    color: dodgerblue;
+}
+
+.text-gl {
+    font-size: 80px;
+}

@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>Home</title>
+</head>
+<body>
+<header class="header">
+    <a class="nav-logo" href="#">
+        <img src="#">
+    </a>
+    <nav class="header-nav">
+        <a asp-controller="Home" asp-action="Index" class="header-nav-link">Главная</a>
+        <a href="#" class="header-nav-link">Блог</a>
+        <a href="#" class="header-nav-link">Обо мне</a>
+        <a asp-controller="Admin" asp-action="List">Админка</a>
+    </nav>
+    <div></div>
+</header>
+<section class="body1">
+    <div class="body-nav1">
+        <div class="text-b">
+            <div class="text-gl">Блог</div>
+            <div class="text-ml">о пути С# web</div>
+            <div class="text-ml">программиста</div>
+        </div>
+        
+        <div class="buttom">
+            <a asp-controller="Blog" asp-action="Index">
+            <div class="bt">Почитать</div>
+            </a>
+        </div>
+        
+    </div>
+    <div class="body-nav2">
+        <img src="/img/414.png" />
+    </div>
+    <div class="body-nav3 spec">
+
+    </div>
+</section>
+<footer class="footer-n">
+    <nav class="footer-nav">
+        <div></div>
+        <div class="contact">
+            <div></div>
+            
+            <a href="#" class="footer-nav-link">
+                <img src="img/telegram-1.svg"/>
+            </a>
+            <a href="#" class="footer-nav-link">
+                <img src="img/1024px-VK_font_awesome.svg.png"/>
+            </a>
+            <div></div>
+        </div>
+        <div></div>
+        <div class="social">
+            <a href="#" class="footer-nav-link">Обо мне</a>
+        </div>
+        <div></div>
+    </nav>
+</footer>
+</body>
+</html>

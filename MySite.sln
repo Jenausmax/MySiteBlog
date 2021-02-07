@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySite", "MySite\MySite.csproj", "{7EE30471-E8C3-4440-BA95-B9F0B30667C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySite", "MySite\MySite.csproj", "{7EE30471-E8C3-4440-BA95-B9F0B30667C0}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9C720AA3-BFA2-439F-A65B-F940D33F38A8}"
 EndProject
