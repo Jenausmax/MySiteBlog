@@ -1,0 +1,44 @@
+﻿@model PostTag
+
+
+<div>
+    @foreach (var tag in Model.Tags)
+     {
+        <a class="btn btn-danger">@tag.TitleTag</a>
+     }
+</div><br />
+
+@Html.TextBox("tag")
+<input id="btnSubmit" type="button" value="Добавить тег" />
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            var formData = new FormData();
+            formData.append("tag", $("#tag").val());
+            $.ajax({
+                url: "/Admin/AddTag",
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (response) {
+                    alert(response);
+                }
+            });
+            //location.reload();
+        });
+
+    });
+</script><br />
+
+@Html.Label("Существуюшие теги:")<br /><br />
+<div>
+    @foreach (var item in Model.OldTags)
+     {
+        <a class="btn btn-dark">@item.TitleTag</a>
+     }
+</div>

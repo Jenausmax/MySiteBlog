@@ -27,7 +27,7 @@ namespace MySite
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BlogDbContext>(opt => opt.UseSqlServer(connectionString));
             services.AddTransient<IPost, BlogRepository>();
-            services.AddTransient<ITagsLogic, PostLogic>();
+            services.AddScoped<IPostTag, PostTag>();
             services.AddMvc();
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }

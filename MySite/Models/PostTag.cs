@@ -1,40 +1,56 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MySite.Models
 {
-    public class PostTag
+    public class PostTag : IPostTag
     {
-        public List<Tag> Tags { get; } 
-        public List<Post> Posts { get; }
-        public Post Post { get; }
-        public string StringTag { get; }
-        private readonly BlogRepository _repository;
-        public PostTag(BlogRepository repository)
+        public List<Tag> Tags { get; } = new List<Tag>();//что есть сейчас у поста
+        public List<Tag> OldTags { get; set; } = new List<Tag>();//все теги из базы
+
+        public static List<string> TempTag { get; set; } = new List<string>();//кеш для сохранения
+
+        private readonly IPost _repository;
+        public PostTag(IPost repository)
         {
             _repository = repository;
-            Tags = new List<Tag>();
-            Posts = new List<Post>();
-            Posts = _repository.Posts.ToList();
-            GetTag();
-            
+            OldTags = _repository.Tags.ToList();
         }
 
-        public void GetTag()
+       
+        public string GetTagString(int id)
         {
-            string StringTag = null;
-            foreach (var itemTPost in Posts)
+            
+            var post = _repository.Posts.Include(t => t.Tags).ToList().FirstOrDefault(p => p.Id == id);
+            if(post != null)
             {
-                foreach (var tagItem in itemTPost.Tags)
+                
+                string resultString = null;
+                foreach (var item in post.Tags.ToList())
                 {
-                    StringTag = $"{StringTag}, {tagItem.TitleTag}";
+                    resultString = $"{resultString}, {item.TitleTag}";
+                    Tags.Add(item);
                 }
                 
+                return resultString;
             }
-
-            
+            else
+            {
+               
+                return "no tags...";
+            }
         }
+
+        public void SetTempTag(string tag)
+        {
+            TempTag.Add(tag);
+        }
+
+
+        
+
     }
 }

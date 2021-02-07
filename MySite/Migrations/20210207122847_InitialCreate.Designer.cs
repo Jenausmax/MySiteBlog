@@ -9,8 +9,8 @@ using MySite.Models;
 namespace MySite.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20210206082924_Create")]
-    partial class Create
+    [Migration("20210207122847_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

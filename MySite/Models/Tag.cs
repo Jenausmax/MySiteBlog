@@ -12,11 +12,6 @@ namespace MySite.Models
         public string TitleTag { get; set; }
         public List<Post> Posts { get; set; } = new List<Post>();
 
-        public Tag(){}
-
-        public Tag(string titleTag)
-        {
-            TitleTag = titleTag;
-        }
+        
     }
 }

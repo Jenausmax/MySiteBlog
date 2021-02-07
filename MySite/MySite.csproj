@@ -31,8 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\image\" />
   </ItemGroup>

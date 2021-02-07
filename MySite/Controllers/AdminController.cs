@@ -13,16 +13,17 @@ namespace MySite.Controllers
     public class AdminController : Controller
     {
         private readonly IPost _postRepository;
-        private readonly ITagsLogic _tagsLogic;
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IPostTag _postTag;
 
-        public AdminController(IPost repo, ITagsLogic logic, IWebHostEnvironment appEnvironment)
+        public AdminController(IPost repo, IWebHostEnvironment appEnvironment, IPostTag post)
         {
             _postRepository = repo;
-            _tagsLogic = logic;
             _appEnvironment = appEnvironment;
+            _postTag = post;
         }
         
+
         [HttpGet]
         [Route("Admin/List")]
         public IActionResult List()
@@ -30,14 +31,18 @@ namespace MySite.Controllers
             return View(_postRepository.Posts);
         }
 
+
         [Route("Admin/Create")]
         public IActionResult Create() => View("Edit", new Post());
+
+
 
         [Route("Admin/Edit")]
         public IActionResult Edit(int id)
         {
             return View(_postRepository.Posts.FirstOrDefault(p => p.Id == id));
         }
+
 
         [HttpPost]
         [Route("Admin/Edit")]
@@ -64,8 +69,8 @@ namespace MySite.Controllers
                     //заглушка если нет файла
                     postFileURL.ImagePatch = "/image/Unknown.png";
                 }
-
-                _postRepository.SavePost(postFileURL); //сохранение обновленного поста в базе
+                
+                _postRepository.SavePost(postFileURL, PostTag.TempTag ); //сохранение обновленного поста в базе
                 
                 TempData["message"] = $"{post.NamePost} has been saved.";
                 return RedirectToAction("List");
@@ -75,6 +80,8 @@ namespace MySite.Controllers
                 return View(post);
             }
         }
+
+
 
         [HttpPost]
         [Route("Admin/Delete")]
@@ -89,13 +96,25 @@ namespace MySite.Controllers
             return RedirectToAction("List");
         }
 
-        [HttpGet]
+        
+
         [Route("Admin/SeedDataBase")]
         public IActionResult SeedDataBase()
         {
             //метод загрузки первоначальных данных в базу если база пуста
             _postRepository.SeedDataBase();
             return RedirectToAction(nameof(List));
+        }
+
+
+
+        [HttpPost]
+        [Route("Admin/AddTag")]
+        public IActionResult AddTag(string tag)
+        {
+            _postTag.SetTempTag(tag);
+            _postRepository.SaveTag(tag);
+            return View();
         }
     }
 }

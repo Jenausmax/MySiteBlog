@@ -10,9 +10,11 @@ namespace MySite.Models
         IQueryable<Post> Posts { get; }
         IQueryable<Tag> Tags { get; }
 
-        void SavePost(Post post);
+        void SavePost(Post post, List<string> tags);
         Post DeletePost(int postId);
         void SeedDataBase();
+
+        void SaveTag(string tag);
 
     }
 }
