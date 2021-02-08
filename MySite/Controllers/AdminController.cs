@@ -28,6 +28,11 @@ namespace MySite.Controllers
         [Route("Admin/List")]
         public IActionResult List()
         {
+            if (PostTag.TempTag != null && PostTag.TempTag.Count != 0)
+            {
+                PostTag.TempTag.Clear();
+            }
+            
             return View(_postRepository.Posts);
         }
 
@@ -113,7 +118,7 @@ namespace MySite.Controllers
         public IActionResult AddTag(string tag)
         {
             _postTag.SetTempTag(tag);
-            _postRepository.SaveTag(tag);
+            //_postRepository.SaveTag(tag);
             return View();
         }
     }

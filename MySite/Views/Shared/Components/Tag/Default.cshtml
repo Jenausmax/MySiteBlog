@@ -8,6 +8,13 @@
      }
 </div><br />
 
+<div>
+    @foreach (var tagTemp in PostTag.TempTag)
+     {
+         <a class="btn btn-outline-danger">@tagTemp</a>
+     }
+</div><br/>
+
 @Html.TextBox("tag")
 <input id="btnSubmit" type="button" value="Добавить тег" />
 
@@ -29,7 +36,8 @@
                     alert(response);
                 }
             });
-            //location.reload();
+
+            location.reload();
         });
 
     });
@@ -39,6 +47,6 @@
 <div>
     @foreach (var item in Model.OldTags)
      {
-        <a class="btn btn-dark">@item.TitleTag</a>
+        <a class="btn btn-outline-dark">@item.TitleTag</a>
      }
 </div>

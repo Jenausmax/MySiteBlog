@@ -42,16 +42,26 @@ namespace MySite.Models
             {
                 foreach (var item in tempTag)
                 {
-                    post.Tags.Add(item);
+                    var nonPostTag = _blogDb.Tags.FirstOrDefault(x => x.TitleTag == item.TitleTag);
+                    if (nonPostTag != null)
+                    {
+                        nonPostTag.Posts.Add(post);
+                    }
+                    else
+                    {
+                        post.Tags.Add(item);
+                    }
+                    
                 }
 
                 _blogDb.Posts.Add(post);
-                PostTag.TempTag.Clear();
+                ClearList();
+                
             }
             else
             {
                 
-                var dbEntry = _blogDb.Posts.FirstOrDefault(p => p.Id == post.Id);
+                var dbEntry = _blogDb.Posts.Include(t => t.Tags).FirstOrDefault(p => p.Id == post.Id);
                 if (dbEntry != null)
                 {
                     dbEntry.NamePost = post.NamePost;
@@ -60,10 +70,20 @@ namespace MySite.Models
                     dbEntry.ImagePatch = post.ImagePatch;
                     foreach (var item in tempTag)
                     {
-                        dbEntry.Tags.Add(item);
+                        var nonPostTag = _blogDb.Tags.FirstOrDefault(x => x.TitleTag == item.TitleTag);
+                        if (nonPostTag != null)
+                        {
+                            
+                            dbEntry.Tags.Add(nonPostTag);
+                        }
+                        else
+                        {
+                            dbEntry.Tags.Add(item);
+                        }
+
                     }
                 }
-                PostTag.TempTag.Clear();
+                ClearList();
             }
 
             Save();
@@ -95,7 +115,7 @@ namespace MySite.Models
         }
 
         /// <summary>
-        /// Метод загрузки первоначальных данных в базу
+        /// Метод загрузки первоначальных данных в базу.
         /// </summary>
         public void SeedDataBase()
         {
@@ -118,25 +138,15 @@ namespace MySite.Models
         }
 
         /// <summary>
-        /// Метод сохранения и создания из строки тега в базу.
+        /// Метод очистки кеш коллекции тегов PostTag.TempTag.
         /// </summary>
-        /// <param name="tag">Строка тег</param>
-        public void SaveTag(string tag)
+        private void ClearList()
         {
-            var temp = new Tag() { TitleTag = tag };
-            var tempResult = _blogDb.Tags.FirstOrDefault(x => x.TitleTag == temp.TitleTag);
-            if(tempResult != null)
+            if (PostTag.TempTag != null)
             {
-                return;
-                
+                PostTag.TempTag.Clear();
             }
-            else
-            {
-                _blogDb.Tags.Add(temp);
-            }
-            
-            Save();
-
         }
+
     }
 }

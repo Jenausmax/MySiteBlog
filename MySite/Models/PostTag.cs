@@ -9,13 +9,16 @@ namespace MySite.Models
     public class PostTag : IPostTag
     {
         /// <summary>
-        /// Теги которые присутствуют у поста.
+        /// Коллекция тегов которые присутствуют у поста.
         /// </summary>
         public List<Tag> Tags { get; } = new List<Tag>();//что есть сейчас у поста
+        
+        
         /// <summary>
         /// Коллекция тегов из базы.(Все теги из базы)
         /// </summary>
         public List<Tag> OldTags { get; set; } = new List<Tag>();//все теги из базы
+        
 
         /// <summary>
         /// Кеш для сохранения тега, при добавлении к несохраненному посту.
@@ -28,6 +31,7 @@ namespace MySite.Models
             _repository = repository;
             OldTags = _repository.Tags.ToList();
         }
+        
 
         /// <summary>
         /// Метод поиска тегов у выбранного поста.
