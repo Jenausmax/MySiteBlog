@@ -10,7 +10,7 @@ namespace MySite.Models
         List<Tag> Tags { get; }
         List<Tag> OldTags { get; set; }
         static List<string> TempTag { get; set; }
-        string GetTagString(int id);
+        void GetTagString(int id);
         void SetTempTag(string tag);
     }
 }

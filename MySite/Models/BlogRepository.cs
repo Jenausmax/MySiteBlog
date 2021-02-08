@@ -15,12 +15,21 @@ namespace MySite.Models
             _blogDb = blogDb;
         }
 
+        /// <summary>
+        /// Коллекция всех постов.
+        /// </summary>
         public IQueryable<Post> Posts => _blogDb.Posts;//выгрузка постов
-
+        /// <summary>
+        /// Коллекция всех тегов.
+        /// </summary>
         public IQueryable<Tag> Tags => _blogDb.Tags;//выгрузка тегов
        
 
-
+        /// <summary>
+        /// Метод сохранения поста.
+        /// </summary>
+        /// <param name="post">Сущность пост.</param>
+        /// <param name="tags">Коллекция строк тегов.</param>
         public void SavePost(Post post, List<string> tags)
         {
             var tempTag = new List<Tag>();
@@ -60,13 +69,18 @@ namespace MySite.Models
             Save();
         }
 
+        
         private void Save()
         {
             _blogDb.SaveChanges();
         }
 
         
-
+        /// <summary>
+        /// Метод удаления поста из базы.
+        /// </summary>
+        /// <param name="postId">ID поста.</param>
+        /// <returns>Возвращение удаленного поста.</returns>
         public Post DeletePost(int postId)
         {
             var postRemove = _blogDb.Posts.FirstOrDefault(p => p.Id == postId);
@@ -80,12 +94,15 @@ namespace MySite.Models
             return postRemove;
         }
 
+        /// <summary>
+        /// Метод загрузки первоначальных данных в базу
+        /// </summary>
         public void SeedDataBase()
         {
             var tagSeed = new Tag();
             tagSeed.TitleTag = "Seed";
             var tagSeed2 = new Tag();
-            tagSeed2.TitleTag = "ff";
+            tagSeed2.TitleTag = "Seed2";
             _blogDb.Tags.Add(tagSeed);
             _blogDb.Tags.Add(tagSeed2);
             var postSeed = new Post();
@@ -100,6 +117,10 @@ namespace MySite.Models
             Save();
         }
 
+        /// <summary>
+        /// Метод сохранения и создания из строки тега в базу.
+        /// </summary>
+        /// <param name="tag">Строка тег</param>
         public void SaveTag(string tag)
         {
             var temp = new Tag() { TitleTag = tag };

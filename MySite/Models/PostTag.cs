@@ -8,10 +8,19 @@ namespace MySite.Models
 {
     public class PostTag : IPostTag
     {
+        /// <summary>
+        /// Теги которые присутствуют у поста.
+        /// </summary>
         public List<Tag> Tags { get; } = new List<Tag>();//что есть сейчас у поста
+        /// <summary>
+        /// Коллекция тегов из базы.(Все теги из базы)
+        /// </summary>
         public List<Tag> OldTags { get; set; } = new List<Tag>();//все теги из базы
 
-        public static List<string> TempTag { get; set; } = new List<string>();//кеш для сохранения
+        /// <summary>
+        /// Кеш для сохранения тега, при добавлении к несохраненному посту.
+        /// </summary>
+        public static List<string> TempTag { get; set; } = new List<string>();
 
         private readonly IPost _repository;
         public PostTag(IPost repository)
@@ -20,8 +29,11 @@ namespace MySite.Models
             OldTags = _repository.Tags.ToList();
         }
 
-       
-        public string GetTagString(int id)
+        /// <summary>
+        /// Метод поиска тегов у выбранного поста.
+        /// </summary>
+        /// <param name="id">ID поста.</param>
+        public void GetTagString(int id)
         {
             
             var post = _repository.Posts.Include(t => t.Tags).ToList().FirstOrDefault(p => p.Id == id);
@@ -35,15 +47,14 @@ namespace MySite.Models
                     Tags.Add(item);
                 }
                 
-                return resultString;
             }
-            else
-            {
-               
-                return "no tags...";
-            }
+
         }
 
+        /// <summary>
+        /// Метод добавления тега в кеш коллекцию.
+        /// </summary>
+        /// <param name="tag">Строка тега.</param>
         public void SetTempTag(string tag)
         {
             TempTag.Add(tag);
